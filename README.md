@@ -11,29 +11,6 @@ The architecture is designed using the **Page Object Model (POM)** and adheres t
 - Platform-independent abstraction
 - Smooth scalability for new app modules and test cases
 
-## 📌 Architecture & Design
-The codebase follows a layered structure as shown below:
-
-src/
-├── main/java/com/saucedemo/app
-│ ├── base/ → Base page classes, test setup classes
-│ ├── controller/ → Driver & Appium service management
-│ ├── objects/ → Enums, utilities, constants, user objects
-│ ├── utils/ → Gesture helpers, capability utilities, JSON helpers
-│ └── ...
-│
-├── test/java/com/saucedemo/app
-│ ├── pages/
-│ │ ├── android/ → Android-specific Page Object classes
-│ │ ├── ios/ → iOS-specific Page Object classes
-│ │ └── interfaces/ → Shared page interfaces for cross-platform behavior
-│ ├── tests/ → Test cases and execution flows
-│ └── ...
-│
-├── test/resources/
-│ ├── device-profiles/ → Capability configuration for Android/iOS
-│ └── app binaries → .apk and .app files
-
 
 ### 🔹 Key Components
 
