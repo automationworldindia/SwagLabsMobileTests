@@ -1,0 +1,22 @@
+# Java
+*.class
+
+# Maven
+target/
+test-output/
+
+# Gradle
+build/
+
+# IntelliJ
+*.idea/
+*.iml
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# Logs
+*.log
+
