@@ -1,0 +1,7 @@
+com/saucedemo/app/utils/AndroidGestures.class
+com/saucedemo/app/base/BaseTest.class
+com/saucedemo/app/utils/Constants.class
+com/saucedemo/app/controller/AppiumServiceManager.class
+com/saucedemo/app/objects/User.class
+com/saucedemo/app/utils/PlatformType.class
+com/saucedemo/app/base/BasePage.class

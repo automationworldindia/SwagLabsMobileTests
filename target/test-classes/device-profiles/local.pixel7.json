@@ -1,0 +1,7 @@
+{
+  "platform_name": "android",
+  "platform_version": "35",
+  "avd_name": "Pixel_7",
+  "device_name": "Pixel 7",
+  "automation_name": "UiAutomator2"
+}

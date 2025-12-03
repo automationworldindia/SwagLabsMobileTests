@@ -1,0 +1,14 @@
+/Users/automationworld/workspace/SwagLabsMobileTests/src/test/java/com/saucedemo/app/pages/ios/LoginPage_iOS.java
+/Users/automationworld/workspace/SwagLabsMobileTests/src/test/java/com/saucedemo/app/pages/interfaces/ILoginPage.java
+/Users/automationworld/workspace/SwagLabsMobileTests/src/test/java/com/saucedemo/app/pages/LoginPage.java
+/Users/automationworld/workspace/SwagLabsMobileTests/src/test/java/com/saucedemo/app/pages/CartPage.java
+/Users/automationworld/workspace/SwagLabsMobileTests/src/test/java/com/saucedemo/app/pages/interfaces/IProductsPage.java
+/Users/automationworld/workspace/SwagLabsMobileTests/src/test/java/com/saucedemo/app/tests/CheckoutTests.java
+/Users/automationworld/workspace/SwagLabsMobileTests/src/test/java/com/saucedemo/app/pages/interfaces/ICheckoutInformationPage.java
+/Users/automationworld/workspace/SwagLabsMobileTests/src/test/java/com/saucedemo/app/pages/android/ProductsPage_Android.java
+/Users/automationworld/workspace/SwagLabsMobileTests/src/test/java/com/saucedemo/app/pages/ProductsPage.java
+/Users/automationworld/workspace/SwagLabsMobileTests/src/test/java/com/saucedemo/app/pages/CheckoutInformationPage.java
+/Users/automationworld/workspace/SwagLabsMobileTests/src/test/java/com/saucedemo/app/pages/android/LoginPage_Android.java
+/Users/automationworld/workspace/SwagLabsMobileTests/src/test/java/com/saucedemo/app/pages/android/CheckoutInformationPage_Android.java
+/Users/automationworld/workspace/SwagLabsMobileTests/src/test/java/com/saucedemo/app/pages/interfaces/ICartPage.java
+/Users/automationworld/workspace/SwagLabsMobileTests/src/test/java/com/saucedemo/app/pages/android/CartPage_Android.java

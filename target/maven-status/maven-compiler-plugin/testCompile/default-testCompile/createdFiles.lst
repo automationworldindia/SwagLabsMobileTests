@@ -1,0 +1,14 @@
+com/saucedemo/app/pages/interfaces/ICheckoutInformationPage.class
+com/saucedemo/app/pages/interfaces/IProductsPage.class
+com/saucedemo/app/pages/CartPage.class
+com/saucedemo/app/pages/CheckoutInformationPage.class
+com/saucedemo/app/pages/interfaces/ILoginPage.class
+com/saucedemo/app/pages/ProductsPage.class
+com/saucedemo/app/tests/CheckoutTests.class
+com/saucedemo/app/pages/ios/LoginPage_iOS.class
+com/saucedemo/app/pages/android/CartPage_Android.class
+com/saucedemo/app/pages/android/ProductsPage_Android.class
+com/saucedemo/app/pages/interfaces/ICartPage.class
+com/saucedemo/app/pages/LoginPage.class
+com/saucedemo/app/pages/android/LoginPage_Android.class
+com/saucedemo/app/pages/android/CheckoutInformationPage_Android.class
