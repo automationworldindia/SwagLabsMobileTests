@@ -13,8 +13,32 @@ import com.saucedemo.app.pages.android.CheckoutInformationPage_Android;
 
 public class CheckoutTests extends BaseTest {
 	
-	@Test
-	public void checkoutProducts() throws InterruptedException {
+	@Test(description="Verify user is able to checkout a single product.")
+	public void checkoutSingleProduct() throws InterruptedException {
+		//Login
+		LoginPage loginPage = new LoginPage(driver);
+		loginPage.login("standard_user", "secret_sauce");	
+		//Add Products to Cart
+		ProductsPage productPage = new ProductsPage(driver);
+		productPage.addproductToCart("Sauce Labs Bike Light");
+		productPage.clickCartButton();
+		//Validate Cart Page
+		CartPage cartPage = new CartPage(driver);
+		cartPage.validateNavigationToCartPage();
+		cartPage.validateProductDisplayed("Sauce Labs Fleece Jacket");
+		cartPage.validateProductDisplayed("Sauce Labs Bike Light");
+		cartPage.clickCheckoutButton();
+		//Enter Checkout Information
+		User userObject = new User("Abhijeet", "Podder", "560023"); 
+		CheckoutInformationPage checkoutInfo = new CheckoutInformationPage(driver);
+		checkoutInfo.validateNavigationToCheckoutInfoPage();
+		checkoutInfo.setCheckoutInfo(userObject);
+		
+		Thread.sleep(4000);
+	}
+	
+	@Test(description="Verify user is able to checkout multiple products.")
+	public void checkoutMultipleProducts() throws InterruptedException {
 		//Login
 		LoginPage loginPage = new LoginPage(driver);
 		loginPage.login("standard_user", "secret_sauce");	
@@ -37,5 +61,4 @@ public class CheckoutTests extends BaseTest {
 		
 		Thread.sleep(4000);
 	}
-
 }

@@ -22,8 +22,22 @@ public interface JsonUtils {
         jsonData.putAll(map);
     }
 	
-	public static String getString(String key) {
+	/*public static String getString(String key) {
         Object value = jsonData.get(key);
         return value != null ? value.toString() : null;
-    }
+    }*/
+	
+	public static String getString(String key) {
+		Object value = null;
+		
+		if (key.contains(".")) {
+			String[] partialKeys = key.split("\\.");
+			Map<String, Object> nestedJsonData = (Map<String, Object>) jsonData.get(partialKeys[0]);
+			value = nestedJsonData.get(partialKeys[1]);
+		} else {
+			value = jsonData.get(key);
+		}
+		
+		return value != null ? value.toString() : null;
+	}
 }

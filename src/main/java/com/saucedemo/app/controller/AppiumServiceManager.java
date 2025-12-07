@@ -26,26 +26,31 @@ public class AppiumServiceManager {
     }
     
     public static void startAppiumService() {
-        initAppiumService();
-        if (service != null && !service.isRunning()) {
-            service.start();
-            if (!service.isRunning()) {
-                throw new RuntimeException("Failed to start Appium service.");
+    	if (!Constants.ENABLE_PERFECTO) {
+    		initAppiumService();
+            if (service != null && !service.isRunning()) {
+                service.start();
+                if (!service.isRunning()) {
+                    throw new RuntimeException("Failed to start Appium service.");
+                }
+            } else if (service != null && service.isRunning()) {
+                throw new RuntimeException("Appium service is already running.");
+            } else {
+                throw new RuntimeException("Appium service initialization failed.");
             }
-        } else if (service != null && service.isRunning()) {
-            throw new RuntimeException("Appium service is already running.");
-        } else {
-            throw new RuntimeException("Appium service initialization failed.");
-        }
+    	}  
     }
     
     public static void stopAppiumService() {
-        if (service != null && service.isRunning()) {
-            service.stop();
-        } else if (service != null) {
-            throw new RuntimeException("Appium service is not running or has already been stopped.");
-        } else {
-            throw new RuntimeException("Appium service was not initialized.");
-        }
+    	if (!Constants.ENABLE_PERFECTO) {
+    		if (service != null && service.isRunning()) {
+                service.stop();
+            } else if (service != null) {
+                throw new RuntimeException("Appium service is not running or has already been stopped.");
+            } else {
+                throw new RuntimeException("Appium service was not initialized.");
+            }
+    	}
+        
     }
 }

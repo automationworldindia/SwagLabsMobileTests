@@ -1,0 +1,12 @@
+{
+	"platform": {
+		"name": "ios",
+		"version": "17.0"
+	},
+	"device": {
+		"name": "iPhone 15",
+		"type": "simulator"
+	},
+	"no_reset": false,
+	"automation_name": "XCUITest"
+}

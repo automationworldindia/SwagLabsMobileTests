@@ -1,0 +1,12 @@
+{
+	"platform": {
+		"name": "android",
+		"version": "16.0"
+	},
+	"device": {
+		"name": "Pixel_7",
+		"type": "emulator"
+	},
+	"no_reset": false,
+	"automation_name": "UiAutomator2"
+}

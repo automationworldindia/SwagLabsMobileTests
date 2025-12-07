@@ -7,8 +7,10 @@ import java.net.MalformedURLException;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
 
 import com.saucedemo.app.controller.AppiumDriverManager;
 import com.saucedemo.app.controller.AppiumServiceManager;
@@ -27,7 +29,6 @@ public abstract class BaseTest {
 	public void suiteSetUp() {
 		try {
 			PropertyUtils.loadConfigProperties();
-			//System.out.println(Config.getProperty(""));
 			JsonUtils.loadDeviceProfile(Constants.DEVICE_PROFILE);
 			AppiumServiceManager.startAppiumService();
 		} catch (IOException e) {
@@ -47,7 +48,7 @@ public abstract class BaseTest {
 	@AfterMethod
 	public void testTeardown() {
 		try {
-			terminateApp(driver);
+			terminateApp(driver);	
 			AppiumDriverManager.killDriver();
 		} catch (Exception e) {
 			Assert.fail(e.getMessage());
@@ -60,10 +61,12 @@ public abstract class BaseTest {
 	}
 	
 	private void terminateApp(AppiumDriver driver) {
-		if (driver instanceof AndroidDriver) {
-			((AndroidDriver) driver).terminateApp(Constants.PKGNAME);
-		} else {
-			((IOSDriver) driver).terminateApp(Constants.BUNDLEID);
+		if (!Constants.ENABLE_PERFECTO) {
+			if (driver instanceof AndroidDriver) {
+				((AndroidDriver) driver).terminateApp(Constants.PKGNAME);
+			} else {
+				((IOSDriver) driver).terminateApp(Constants.BUNDLEID);
+			}
 		}
 	}
 
