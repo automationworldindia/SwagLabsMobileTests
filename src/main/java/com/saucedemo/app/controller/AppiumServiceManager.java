@@ -8,49 +8,63 @@ import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 
 public class AppiumServiceManager {
-	private static AppiumDriverLocalService service = null;
-    
+    // ThreadLocal to ensure each thread has its own Appium server
+    private static final ThreadLocal<AppiumDriverLocalService> service =
+            new ThreadLocal<>();
+
     private AppiumServiceManager() {}
-    
-    private static void initAppiumService() {
-        File logFile = new File(System.getProperty("user.dir") + Constants.APPIUM_LOG_FILEPATH);
-        service = new AppiumServiceBuilder()
-                .withAppiumJS(new File(Constants.APPIUMJS_FILEPATH))
-                .usingDriverExecutable(new File(Constants.NODE_FILEPATH))
-                .withIPAddress(Constants.APPIUM_SERVER_ADDRESS)
-                .usingPort(Constants.APPIUM_SERVER_PORT)
+
+    private static AppiumDriverLocalService buildService(String portFromXML) {
+        if (portFromXML != null) {
+            Constants.get().APPIUM_SERVER_PORT = Integer.parseInt(portFromXML);
+        }
+        return new AppiumServiceBuilder()
+                .withAppiumJS(new File(Constants.get().APPIUMJS_FILEPATH))
+                .usingDriverExecutable(new File(Constants.get().NODE_FILEPATH))
+                .withIPAddress(Constants.get().APPIUM_SERVER_ADDRESS)
+                .usingPort(Constants.get().APPIUM_SERVER_PORT)
                 .withArgument(() -> "--log-no-color")
-                .withLogFile(logFile)
-                .withLogOutput(null)
                 .build();
     }
-    
-    public static void startAppiumService() {
-    	if (!Constants.ENABLE_PERFECTO) {
-    		initAppiumService();
-            if (service != null && !service.isRunning()) {
-                service.start();
-                if (!service.isRunning()) {
-                    throw new RuntimeException("Failed to start Appium service.");
-                }
-            } else if (service != null && service.isRunning()) {
-                throw new RuntimeException("Appium service is already running.");
-            } else {
-                throw new RuntimeException("Appium service initialization failed.");
+
+    public static void startAppiumService(String portFromXML) {
+        if (Constants.get().ENABLE_PERFECTO)
+            return;
+        if (service.get() == null) {
+            AppiumDriverLocalService newService = buildService(portFromXML);
+            service.set(newService);
+        }
+
+        AppiumDriverLocalService server = service.get();
+
+        if (!server.isRunning()) {
+            server.start();
+            if (!server.isRunning()) {
+                throw new RuntimeException("Failed to start Appium service on port: "
+                        + Constants.get().APPIUM_SERVER_PORT);
             }
-    	}  
+            System.out.println("Appium server started on: "
+                    + Constants.get().APPIUM_SERVER_ADDRESS + ":" + Constants.get().APPIUM_SERVER_PORT);
+        } else {
+            System.out.println("Appium service already running for this thread on port: "
+                    + Constants.get().APPIUM_SERVER_PORT);
+        }
     }
-    
+
     public static void stopAppiumService() {
-    	if (!Constants.ENABLE_PERFECTO) {
-    		if (service != null && service.isRunning()) {
-                service.stop();
-            } else if (service != null) {
-                throw new RuntimeException("Appium service is not running or has already been stopped.");
-            } else {
-                throw new RuntimeException("Appium service was not initialized.");
-            }
-    	}
-        
+        if (Constants.get().ENABLE_PERFECTO)
+            return;
+        AppiumDriverLocalService server = service.get();
+        if (server == null) {
+            System.out.println("Appium service was not initialized for this thread.");
+            return;
+        }
+        if (server.isRunning()) {
+            server.stop();
+            System.out.println("Appium service stopped on port: "
+                    + Constants.get().APPIUM_SERVER_PORT);
+        }
+        // Remove from ThreadLocal after stopping
+        service.remove();
     }
 }

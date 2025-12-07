@@ -6,7 +6,6 @@ import java.time.Duration;
 import java.util.HashMap;
 
 import org.openqa.selenium.MutableCapabilities;
-import org.testng.Assert;
 
 import com.saucedemo.app.utils.Constants;
 import com.saucedemo.app.utils.PlatformType;
@@ -25,7 +24,9 @@ public class AppiumDriverManager {
 	
 	public static AppiumDriver getDriver() throws MalformedURLException {
         if (DRIVER.get() == null) {
-            DRIVER.set(getDriver(Constants.PLATFORM_TYPE));
+            DRIVER.set(getDriver(Constants.get().PLATFORM_TYPE));
+            System.out.println(String.format("******* Initialized driver for %s at thread id %s. ********", 
+            		Constants.get().PLATFORM_TYPE, Thread.currentThread().getId()));
         }
         return DRIVER.get();
     }
@@ -41,10 +42,10 @@ public class AppiumDriverManager {
 	
 	private static AppiumDriver getDriver(PlatformType platformType) throws MalformedURLException {
 		AppiumDriver driver = null;
-		String url = "http://" + Constants.APPIUM_SERVER_ADDRESS + ":" + Constants.APPIUM_SERVER_PORT;
+		String url = "http://" + Constants.get().APPIUM_SERVER_ADDRESS + ":" + Constants.get().APPIUM_SERVER_PORT;
 		
-		if (Constants.PLATFORM_TYPE == PlatformType.ANDROID) {
-			driver = Constants.ENABLE_PERFECTO ? getPerfectoAndroidDriver() : getAndroidDriver(url);
+		if (Constants.get().PLATFORM_TYPE == PlatformType.ANDROID) {
+			driver = Constants.get().ENABLE_PERFECTO ? getPerfectoAndroidDriver() : getAndroidDriver(url);
 		} else {
 			driver = getIOSDriver(url);
 		}
@@ -55,26 +56,28 @@ public class AppiumDriverManager {
 	
 	private static AppiumDriver getAndroidDriver(String url) throws MalformedURLException {
 		UiAutomator2Options options = new UiAutomator2Options();
-		System.out.println(Constants.getDeviceName());
         options.setAvd(Constants.getDeviceName());
-        options.setApp(System.getProperty("user.dir") + "/src/test/resources/" + Constants.APK_FILENAME);  
-        options.setAppPackage(Constants.PKGNAME);
-        options.setAppActivity(Constants.ACTIVITY);
+        options.setApp(System.getProperty("user.dir") + "/src/test/resources/" + Constants.get().APK_FILENAME);  
+        options.setAppPackage(Constants.get().PKGNAME);
+        options.setAppActivity(Constants.get().ACTIVITY);
         options.setNoReset(Constants.getNoReset()); //Every time you run the test, clear all saved data — like login info, settings, cache — and start the app brand new.    
         options.setAppWaitActivity("com.swaglabsmobileapp.*"); //Wait until an activity (screen) from the app appears.
         options.setAppWaitDuration(Duration.ofSeconds(10)); //Wait up to 10 seconds for the app to open before giving up.
+        System.out.println(String.format("****** Thread id %s: Connecting to url %s for %s. ******", 
+        		Thread.currentThread().getId(), url, Constants.getDeviceName()));
         AppiumDriver driver = new AndroidDriver(new URL(url), options);
         return driver;
     }
 	
 	private static AppiumDriver getIOSDriver(String url) throws MalformedURLException {
 		XCUITestOptions options = new XCUITestOptions();
-        options.setDeviceName(Constants.getDeviceName());
-        System.out.println(Constants.getPlatformVersion());        
+        options.setDeviceName(Constants.getDeviceName());       
         options.setPlatformVersion(Constants.getPlatformVersion());
-        options.setApp(System.getProperty("user.dir") + "/src/test/resources/" + Constants.APP_FILENAME);
-        options.setBundleId(Constants.BUNDLEID);
+        options.setApp(System.getProperty("user.dir") + "/src/test/resources/" + Constants.get().APP_FILENAME);
+        options.setBundleId(Constants.get().BUNDLEID);
         options.setNoReset(Constants.getNoReset());
+        System.out.println(String.format("****** Thread id %s: Connecting to url %s for %s. ******", 
+        		Thread.currentThread().getId(), url, Constants.getDeviceName()));
         AppiumDriver driver = new IOSDriver(new URL(url), options);
         return driver;
     }
@@ -82,20 +85,20 @@ public class AppiumDriverManager {
 	private static AppiumDriver getPerfectoAndroidDriver() throws MalformedURLException {
 		//Device Capabilities
 		MutableCapabilities capabilities = new MutableCapabilities();
-		capabilities.setCapability("platformName", "Android");
-		capabilities.setCapability("appium:platformVersion", "16.0");
-		capabilities.setCapability("appium:deviceName", "Google Pixel 6 Emulator");
-		capabilities.setCapability("appium:automationName", "UiAutomator2");
-		capabilities.setCapability("appium:app", "storage:filename=Android.SauceLabs.Mobile.Sample.app.2.7.1.apk"); 
-		capabilities.setCapability("appium:noReset", false); //Every time you run the test, clear all saved data — like login info, settings, cache — and start the app brand new.
+		capabilities.setCapability("platformName", Constants.getPlatformName());
+		capabilities.setCapability("appium:platformVersion", Constants.getPlatformVersion());
+		capabilities.setCapability("appium:deviceName", Constants.getDeviceName());
+		capabilities.setCapability("appium:automationName", Constants.getAutomationName());
+		capabilities.setCapability("appium:app", "storage:filename=" + Constants.get().APK_FILENAME); 
+		capabilities.setCapability("appium:noReset", Constants.getNoReset()); //Every time you run the test, clear all saved data — like login info, settings, cache — and start the app brand new.
         capabilities.setCapability("appium:appWaitActivity", "com.swaglabsmobileapp.*"); //Wait until an activity (screen) from the app appears.
         capabilities.setCapability("appium:appWaitDuration", 10000); //Wait up to 10 seconds for the app to open before giving up.
 		// Sauce options
         HashMap<String, Object> sauceOptions = new HashMap<String, Object>();
-        sauceOptions.put("username", "oauth-automationworldindia-7132b");
-        sauceOptions.put("accessKey", "eec77b1b-7148-445a-a875-7eb14c8fda07");
-        sauceOptions.put("build", "appium-build-Real-Devices");
-        sauceOptions.put("name", "Android Demo Test");
+        sauceOptions.put("username", Constants.get().PERFECTO_USERNAME);
+        sauceOptions.put("accessKey", Constants.get().PERFECTO_ACCESSKEY);
+        sauceOptions.put("build", "build-"+Constants.getPlatformName().toLowerCase()+"-"+Constants.getDeviceName().toLowerCase());
+        sauceOptions.put("name", "Swag Labs Automated Tests");
         //sauceOptions.put("appiumVersion", "latest");
         
         capabilities.setCapability("sauce:options", sauceOptions);

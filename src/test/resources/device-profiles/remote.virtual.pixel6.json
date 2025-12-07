@@ -4,7 +4,7 @@
 		"version": "16.0"
 	},
 	"device": {
-		"name": "Pixel_7",
+		"name": "Google Pixel 6 Emulator",
 		"type": "emulator"
 	},
 	"no_reset": false,
