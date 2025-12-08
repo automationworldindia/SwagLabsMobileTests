@@ -26,7 +26,7 @@ import io.appium.java_client.ios.IOSDriver;
 public abstract class BaseTest {    
     protected AppiumDriver driver = null;
 	
-	@BeforeTest
+	@BeforeTest(alwaysRun=true)
 	@Parameters({"platform", "profile", "port"})
 	public void suiteSetUp(@Optional String platform, @Optional String profile, @Optional String port) {
 		try {
@@ -39,7 +39,7 @@ public abstract class BaseTest {
 		}
 	}
 	
-	@BeforeMethod
+	@BeforeMethod(alwaysRun=true)
 	public void testSetup(Method method) {
 		try {
 			System.out.println(String.format("******** Thread %s: Initializing driver. ********", Thread.currentThread().getId()));
@@ -50,7 +50,7 @@ public abstract class BaseTest {
 		}
 	}
 	
-	@AfterMethod
+	@AfterMethod(alwaysRun=true)
 	public void testTeardown() {
 		try {
 			terminateApp(driver);	
@@ -60,7 +60,7 @@ public abstract class BaseTest {
 		}
 	}
 	
-	@AfterTest
+	@AfterTest(alwaysRun=true)
 	public void suiteTearDown() {
 		System.out.println(String.format("******** Thread id %s: Stopping Appium service for %s. ********", 
 				Thread.currentThread().getId(), Constants.get().PLATFORM_TYPE));

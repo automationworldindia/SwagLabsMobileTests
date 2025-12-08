@@ -8,5 +8,6 @@ public interface IProductsPage {
 	public void scrollToProduct(String productName);
 	public void clickAddToCartButton(String productName);
 	public void validateRemoveBtnDisplayed(String productName);
+	public void validateErrorMessage(String expectedMsg);
 
 }

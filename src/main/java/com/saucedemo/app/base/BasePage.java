@@ -72,6 +72,10 @@ public abstract class BasePage {
         }
     }
 	
+	protected String getElementAttribute(By locator, String attribName) {
+		return getElement(locator).getAttribute(attribName).toString();
+	}
+	
 	protected void addDelay(int timeInSecs) {
         try {
             Thread.sleep(timeInSecs * 1000L);

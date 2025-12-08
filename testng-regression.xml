@@ -1,22 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Suite" parallel="tests" thread-count="2">
-  <!-- ANDROID TESTS -->
-  <test name="RegressionTests-Android">
-  	<parameter name="platform" value="android"/>
-  	<parameter name="profile" value="local.virtual.pixel7.json"/>
-  	<parameter name="port" value="4723"/>
-    <packages>
-      <package name="com.saucedemo.app.tests"/>
-    </packages>
-  </test>
-  <!-- IOS TESTS -->
-  <test name="RegressionTests-iOS">
-  	<parameter name="platform" value="ios"/>
-  	<parameter name="profile" value="local.virtual.iphone15.json"/>
-  	<parameter name="port" value="4724"/>
-    <packages>
-      <package name="com.saucedemo.app.tests"/>
-    </packages>
-  </test> <!-- Test -->
+	<groups>
+        <run>
+        	<include name="regression"></include>
+        </run>
+	</groups>
+	<!-- ANDROID TESTS -->
+	<test name="RegressionTests-Android">
+		<parameter name="platform" value="android" />
+		<parameter name="profile" value="local.virtual.pixel7.json" />
+		<parameter name="port" value="4723" />
+		<packages>
+			<package name="com.saucedemo.app.tests" />
+		</packages>
+	</test>
+	<!-- IOS TESTS -->
+	<test name="RegressionTests-iOS">
+		<parameter name="platform" value="ios" />
+		<parameter name="profile"
+			value="local.virtual.iphone15.json" />
+		<parameter name="port" value="4724" />
+		<packages>
+			<package name="com.saucedemo.app.tests" />
+		</packages>
+	</test> <!-- Test -->
 </suite> <!-- Suite -->

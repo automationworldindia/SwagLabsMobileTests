@@ -14,7 +14,8 @@ import com.saucedemo.app.pages.ProductsPage;
 import com.saucedemo.app.utils.TestDataUtils;
 
 public class CheckoutTests extends BaseTest {
-	@Test(description="[Checkout-001] Verify user is able to checkout a single product.")
+	@Test(description = "[Checkout-001] Verify user is able to checkout a single product.",
+			groups = {"sanity", "regression"})
 	public void checkoutSingleProduct() throws InterruptedException {
 		try {
 			//Get test data
@@ -48,7 +49,8 @@ public class CheckoutTests extends BaseTest {
 		}		
 	}
 	
-	@Test(description="[Checkout-002] Verify user is able to checkout multiple products.")
+	@Test(description="[Checkout-002] Verify user is able to checkout multiple products.",
+			groups = {"regression"})
 	public void checkoutMultipleProducts() {
 		try {
 			//Get test data

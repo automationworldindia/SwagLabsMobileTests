@@ -3,10 +3,10 @@
 <suite name="Suite">
 	<groups>
 		<run>
-			<include name="sanity"></include>
+			<include name="develop"></include>
 		</run>
 	</groups>
-	<test name="SanityTests">
+	<test name="TestsInDevelopment">
 		<packages>
 			<package name="com.saucedemo.app.tests" />
 		</packages>

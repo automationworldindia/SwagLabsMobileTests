@@ -31,5 +31,9 @@ public class ProductsPage {
 	public void clickCartButton() {
 		productsPage.clickCartButton();
 	}
+	
+	public void validateErrorMessage(String expectedMsg) {
+		productsPage.validateErrorMessage(expectedMsg);
+	}
 
 }
