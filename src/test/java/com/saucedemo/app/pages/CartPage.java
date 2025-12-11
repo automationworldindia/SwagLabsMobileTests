@@ -6,6 +6,7 @@ import com.saucedemo.app.pages.ios.CartPage_iOS;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
+import io.qameta.allure.Step;
 
 public class CartPage {
 	private ICartPage cartPage;
@@ -19,15 +20,18 @@ public class CartPage {
 			cartPage = new CartPage_iOS(driver);
 		}
 	}
-	
+
+	@Step("Validate user is navigated to cart page.")
 	public void validateNavigationToCartPage() {
 		cartPage.validateNavigationToCartPage();
 	}
-	
+
+	@Step("Validate product {0} is displayed.")
 	public void validateProductDisplayed(String productName) {
 		cartPage.validateProductDisplayed(productName);
 	}
-	
+
+	@Step("Click checkout button.")
 	public void clickCheckoutButton() {
 		cartPage.clickCheckoutButton();
 	}

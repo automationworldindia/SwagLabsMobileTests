@@ -6,6 +6,7 @@ import com.saucedemo.app.pages.ios.LoginPage_iOS;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
+import io.qameta.allure.Step;
 
 public class LoginPage {
 	private ILoginPage loginPage;
@@ -20,7 +21,8 @@ public class LoginPage {
 			loginPage = new LoginPage_iOS(driver);
 		}
 	}
-	
+
+	@Step("Login to app.")
 	public void login(String userName, String password) {
 		loginPage.login(userName, password);
 	}

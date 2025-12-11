@@ -2,6 +2,8 @@ package com.saucedemo.app.tests;
 
 import java.util.Map;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -13,9 +15,14 @@ import com.saucedemo.app.pages.LoginPage;
 import com.saucedemo.app.pages.ProductsPage;
 import com.saucedemo.app.utils.TestDataUtils;
 
+import io.qameta.allure.Description;
+
+@Epic("Login Tests")
+@Feature("Validate login functionality of the mobile app")
 public class LoginTests extends BaseTest {
 	@Test(description = "[Login-001] Verify user is able to login using valid credentials.",
 			groups = {"sanity", "regression", "develop"})
+	@Description("Validate login functionality using valid credentials.")
 	public void loginUsingValidCredentials() throws InterruptedException {
 		try {
 			//Get test data
@@ -34,9 +41,10 @@ public class LoginTests extends BaseTest {
 			Assert.fail("Error: " + e.getMessage());
 		}		
 	}
-	
+
 	@Test(description="[Login-002] Verify user is not able to login using locked out credentials.",
 			groups = {"regression", "develop"})
+	@Description("Validate login functionality using locked credentials.")
 	public void loginUsingLockedoutCredentials() {
 		try {
 			//Get test data

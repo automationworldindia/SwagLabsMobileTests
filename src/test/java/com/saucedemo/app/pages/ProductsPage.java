@@ -6,6 +6,7 @@ import com.saucedemo.app.pages.ios.ProductsPage_iOS;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
+import io.qameta.allure.Step;
 
 public class ProductsPage {
 	private IProductsPage productsPage;
@@ -19,19 +20,23 @@ public class ProductsPage {
 			productsPage = new ProductsPage_iOS(driver);
 		}
 	}
-	
+
+	@Step("Validate user is navigated to Products page after login.")
 	public void validateNavigationToProductsPage() {
 		productsPage.validateNavigationToProductsPage();
 	}
-	
+
+	@Step("Add product {0} to cart.")
 	public void addproductToCart(String productName) {
 		productsPage.addproductToCart(productName);
 	}
-	
+
+	@Step("Click cart button.")
 	public void clickCartButton() {
 		productsPage.clickCartButton();
 	}
-	
+
+	@Step("Validate error message '{0}' is displayed.")
 	public void validateErrorMessage(String expectedMsg) {
 		productsPage.validateErrorMessage(expectedMsg);
 	}

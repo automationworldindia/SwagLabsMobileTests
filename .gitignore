@@ -20,3 +20,7 @@ build/
 # Logs
 *.log
 
+# Allure
+**/allure-report/
+**/allure-results/
+.allure/

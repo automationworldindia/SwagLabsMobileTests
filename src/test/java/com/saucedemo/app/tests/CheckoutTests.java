@@ -2,6 +2,9 @@ package com.saucedemo.app.tests;
 
 import java.util.Map;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -13,9 +16,12 @@ import com.saucedemo.app.pages.LoginPage;
 import com.saucedemo.app.pages.ProductsPage;
 import com.saucedemo.app.utils.TestDataUtils;
 
+@Epic("Checkout Tests")
+@Feature("Validate checkout functionality of the mobile app")
 public class CheckoutTests extends BaseTest {
 	@Test(description = "[Checkout-001] Verify user is able to checkout a single product.",
 			groups = {"sanity", "regression"})
+	@Description("Verify checkout functionality using a single product.")
 	public void checkoutSingleProduct() throws InterruptedException {
 		try {
 			//Get test data
@@ -51,6 +57,7 @@ public class CheckoutTests extends BaseTest {
 	
 	@Test(description="[Checkout-002] Verify user is able to checkout multiple products.",
 			groups = {"regression"})
+	@Description("Verify checkout functionality using multiple products.")
 	public void checkoutMultipleProducts() {
 		try {
 			//Get test data

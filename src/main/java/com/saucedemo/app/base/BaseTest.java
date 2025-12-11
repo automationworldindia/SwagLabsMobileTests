@@ -4,13 +4,9 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 
+import com.saucedemo.app.controller.ReportManager;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
+import org.testng.annotations.*;
 
 import com.saucedemo.app.controller.AppiumDriverManager;
 import com.saucedemo.app.controller.AppiumServiceManager;
@@ -23,6 +19,8 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
 
+@Listeners({io.qameta.allure.testng.AllureTestNg.class,
+		    com.saucedemo.app.controller.ReportManager.class})
 public abstract class BaseTest {    
     protected AppiumDriver driver = null;
 	

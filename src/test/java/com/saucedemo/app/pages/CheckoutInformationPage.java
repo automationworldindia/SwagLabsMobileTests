@@ -7,6 +7,7 @@ import com.saucedemo.app.pages.ios.CheckoutInformationPage_iOS;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
+import io.qameta.allure.Step;
 
 public class CheckoutInformationPage {
 	private ICheckoutInformationPage checkoutInfoPage;
@@ -20,11 +21,13 @@ public class CheckoutInformationPage {
 			checkoutInfoPage = new CheckoutInformationPage_iOS(driver);
 		}
 	}
-	
+
+	@Step("Validate user is navigated to Checkout Info page.")
 	public void validateNavigationToCheckoutInfoPage() {
 		checkoutInfoPage.validateNavigationToCheckoutInfoPage();
 	}
-	
+
+	@Step("Enter user details for checkout.")
 	public void setCheckoutInfo(User user) {
 		checkoutInfoPage.setCheckoutInfo(user);
 	}
