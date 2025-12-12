@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  jenkins:
+    # Use the official Jenkins LTS image (stable)
+    image: jenkins/jenkins:lts
+
+    # Give the container a readable name
+    container_name: jenkins
+
+    # Restart Jenkins automatically if it crashes or system reboots
+    restart: unless-stopped
+
+    # Run Jenkins as a non-root user (UID 1000 is the typical local user)
+    # Adjust if your local UID/GID is different
+    user: "1000:1000"
+
+    ports:
+      # Jenkins UI
+      - "8080:8080"
+      # JNLP port for connecting remote agents
+      - "50000:50000"
+
+    volumes:
+      # Persistent storage for Jenkins data
+      # Includes plugins, jobs, config, secrets, etc.
+      - jenkins_home:/var/jenkins_home
+
+      # Mount Docker host socket so Jenkins can run Docker builds
+      - /var/run/docker.sock:/var/run/docker.sock
+
+    environment:
+      # Enable Jenkins setup wizard for the first run
+      JENKINS_OPTS: "--prefix=/jenkins"
+
+      # JVM-level settings (optional but clean)
+      JAVA_OPTS: "-Djenkins.install.runSetupWizard=true"
+
+volumes:
+  # Named volume used by Jenkins to store data persistently
+  jenkins_home:
+
