@@ -29,7 +29,4 @@ public class LoginPage_iOS extends BasePage implements ILoginPage, iOSGestures {
 		Assert.assertTrue(isElementClickable(this.loginBtn), "Login Button is not displayed.");
 		tapByCoords(DRIVER, this.loginBtn);
 	}
-	
-	
-
 }

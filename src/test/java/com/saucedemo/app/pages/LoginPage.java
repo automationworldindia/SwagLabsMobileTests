@@ -26,5 +26,4 @@ public class LoginPage {
 	public void login(String userName, String password) {
 		loginPage.login(userName, password);
 	}
-
 }
