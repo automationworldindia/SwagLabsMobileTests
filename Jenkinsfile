@@ -1,9 +1,13 @@
 pipeline {
     agent any
 
+    tools {
+            maven 'MAVEN_3'   // Maven installed via Global Tool Configuration
+        }
+
     parameters {
         // ---------------------------
-        // Appium & Environment Params
+        // Environment Params
         // ---------------------------
         string(name: 'APPIUM_JS_PATH', defaultValue: '/opt/homebrew/lib/node_modules/appium/build/lib/main.js', description: 'Path to appium main.js on host machine')
         string(name: 'APPIUM_NODE_PATH', defaultValue: '/opt/homebrew/bin/node', description: 'Path to node binary on host machine')
