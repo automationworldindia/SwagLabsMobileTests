@@ -33,6 +33,18 @@ pipeline {
             ],
             description: 'Select the TestNG suite to execute'
         )
+
+        // ---------------------------
+        // Branch
+        // ---------------------------
+        choice(
+            name: 'GIT_BRANCH',
+            choices: [
+                'main',
+                'cicd'
+            ],
+            description: 'Select the Git branch to checkout'
+        )
     }
 
     environment {
@@ -49,6 +61,8 @@ pipeline {
         DEVICE_PROFILE     = "${params.DEVICE_PROFILE}"
 
         TESTNG_SUITE       = "${params.TESTNG_SUITE}"
+
+        GIT_BRANCH         = "${params.GIT_BRANCH}"
     }
 
     stages {
@@ -57,7 +71,7 @@ pipeline {
         // ---------------------
         stage('Checkout') {
             steps {
-                git branch: 'main',
+                git branch: '${GIT_BRANCH}',
                     url: 'https://github.com/automationworldindia/SwagLabsMobileTests.git',
                     credentialsId: 'github-creds'
             }
