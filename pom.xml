@@ -5,6 +5,9 @@
     <groupId>com.demo.saucedemo</groupId>
     <artifactId>SwagLabsMobileTests</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <properties>
+        <suiteXmlFile>testng-sanity.xml</suiteXmlFile>
+    </properties>
     <build>
         <plugins>
             <plugin>
@@ -38,7 +41,7 @@
                         </property>
                     </properties>
                     <suiteXmlFiles>
-                        <suiteXmlFile>testng-regression.xml</suiteXmlFile>
+                        <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
             </plugin>
