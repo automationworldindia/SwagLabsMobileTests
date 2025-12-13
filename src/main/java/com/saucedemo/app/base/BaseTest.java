@@ -31,6 +31,8 @@ public abstract class BaseTest {
 			System.out.println("******** Test Suite started at thread#: " + Thread.currentThread().getId() + " ********");
 			System.out.println("Found value 1: " + System.getProperty("SAUCE_USERNAME"));
 			System.out.println("Found value 2: " + System.getProperty("SAUCE_ACCESS_KEY"));
+			System.out.println("Found value 3: " + System.getProperty("platform.type"));
+			System.out.println("Found value 4: " + System.getProperty("device.profile"));
 			loadTestConfiguration(platform, profile);
 			AppiumServiceManager.startAppiumService(port);
 		} catch (Exception e) {
