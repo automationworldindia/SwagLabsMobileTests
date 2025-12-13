@@ -66,7 +66,7 @@ pipeline {
                         includeProperties: false,
                         jdk: '',
                         commandline: 'allure',
-                        results: [[path: 'allure-results']]
+                        results: [[path: 'target/allure-results']]
                     )
                 }
             }
