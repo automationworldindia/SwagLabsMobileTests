@@ -52,12 +52,12 @@ public abstract class Constants {
         this.APPIUM_LOG_FILEPATH   = Config.getProperty("appium.log.path").trim();
         // Perfecto
         this.ENABLE_PERFECTO       = Boolean.parseBoolean(Config.getProperty("perfecto.enable").trim());
-        this.PERFECTO_USERNAME     = Config.getProperty("perfecto.username").trim();
-        this.PERFECTO_ACCESSKEY    = Config.getProperty("perfecto.accessKey").trim();
+        this.PERFECTO_USERNAME     = getSystemOrConfigProperty("perfecto.username");
+        this.PERFECTO_ACCESSKEY    = getSystemOrConfigProperty("perfecto.accessKey");
         		
         // Test Configuration
-        this.PLATFORM_TYPE         = PlatformType.valueOf(Config.getProperty("platform.type").trim().toUpperCase());
-        this.DEVICE_PROFILE        = Config.getProperty("device.profile").trim();
+        this.PLATFORM_TYPE         = PlatformType.valueOf(getSystemOrConfigProperty("platform.type").toUpperCase());
+        this.DEVICE_PROFILE        = getSystemOrConfigProperty("device.profile");
     }
 
     // -------- JSON Device Profile Reads (static is fine; thread-safe) --------
@@ -67,4 +67,9 @@ public abstract class Constants {
     public static String getDeviceType()        { return JsonUtils.getString("device.type"); }
     public static boolean getNoReset()          { return Boolean.parseBoolean(JsonUtils.getString("no_reset")); }
     public static String getAutomationName()    { return JsonUtils.getString("automation_name"); }
+
+    public String getSystemOrConfigProperty(String key) {
+        String value = System.getProperty(key);
+        return (value == null) ? Config.getProperty(key).trim() : value.trim();
+    }
 }

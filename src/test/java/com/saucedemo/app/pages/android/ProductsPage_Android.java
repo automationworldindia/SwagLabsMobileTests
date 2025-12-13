@@ -13,7 +13,6 @@ import io.appium.java_client.AppiumDriver;
 public class ProductsPage_Android extends BasePage implements AndroidGestures, IProductsPage {
 	private By productsBanner = AppiumBy.androidUIAutomator("new UiSelector().className(\"android.widget.TextView\").text(\"PRODUCTS\")");
 	private By cartBtn = AppiumBy.accessibilityId("test-Cart");
-	private By errorMsg = AppiumBy.xpath("//android.view.ViewGroup[@content-desc='test-Error message']//android.widget.TextView"); 
 	
 	private String addToCartBtn = "//android.widget.TextView[@text='%s']//following-sibling::android.view.ViewGroup[@content-desc='test-ADD TO CART']";
 	private String removeBtn = "//android.widget.TextView[@text='%s']//following-sibling::android.view.ViewGroup[@content-desc='test-REMOVE']";
@@ -66,13 +65,4 @@ public class ProductsPage_Android extends BasePage implements AndroidGestures, I
 		By locator = AppiumBy.xpath(String.format(removeBtn, productName));
 		Assert.assertTrue(isElementDisplayed(locator), "Selected product not added to Cart.");
 	}
-
-	@Override
-	public void validateErrorMessage(String expectedMsg) {
-		Assert.assertTrue(isElementDisplayed(errorMsg, 5), "No error message found.");
-		String actualMsg = getElementAttribute(errorMsg, "text");
-		Assert.assertTrue(actualMsg.trim().equals(expectedMsg), 
-				String.format("Error message does not match. Expected: %s. Actual: %s.", expectedMsg, actualMsg));
-	}
-
 }

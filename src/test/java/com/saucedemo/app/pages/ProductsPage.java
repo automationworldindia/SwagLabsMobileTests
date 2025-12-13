@@ -35,10 +35,4 @@ public class ProductsPage {
 	public void clickCartButton() {
 		productsPage.clickCartButton();
 	}
-
-	@Step("Validate error message '{0}' is displayed.")
-	public void validateErrorMessage(String expectedMsg) {
-		productsPage.validateErrorMessage(expectedMsg);
-	}
-
 }

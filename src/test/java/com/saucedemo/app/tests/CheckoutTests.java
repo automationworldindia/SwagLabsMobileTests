@@ -30,7 +30,8 @@ public class CheckoutTests extends BaseTest {
 			
 			//Login
 			LoginPage loginPage = new LoginPage(driver);
-			loginPage.login(data.get("UserName"), data.get("Password"));	
+			loginPage.login(data.get("UserName"), data.get("Password"));
+			loginPage.validateNoErrorMessageDisplayed();
 			
 			//Add Products to Cart
 			ProductsPage productPage = new ProductsPage(driver);
@@ -66,7 +67,8 @@ public class CheckoutTests extends BaseTest {
 			
 			//Login
 			LoginPage loginPage = new LoginPage(driver);
-			loginPage.login(data.get("UserName"), data.get("Password"));	
+			loginPage.login(data.get("UserName"), data.get("Password"));
+			loginPage.validateNoErrorMessageDisplayed();
 			
 			//Add Products to Cart
 			ProductsPage productPage = new ProductsPage(driver);

@@ -14,6 +14,7 @@ public class LoginPage_Android extends BasePage implements ILoginPage, AndroidGe
 	private By userName = AppiumBy.accessibilityId("test-Username");
 	private By password = AppiumBy.accessibilityId("test-Password");
 	private By loginBtn = AppiumBy.accessibilityId("test-LOGIN");
+	private By errorMsg = AppiumBy.xpath("//android.view.ViewGroup[@content-desc='test-Error message']//android.widget.TextView");
 
 	public LoginPage_Android(AppiumDriver driver) {
 		super(driver);
@@ -27,5 +28,18 @@ public class LoginPage_Android extends BasePage implements ILoginPage, AndroidGe
 		enterText(this.password, password); 
 		Assert.assertTrue(isElementClickable(this.loginBtn), "Login Button is not displayed.");
 		clickGestureById(DRIVER, this.loginBtn);
+	}
+
+	@Override
+	public void validateErrorMessage(String expectedMsg) {
+		Assert.assertTrue(isElementDisplayed(errorMsg, 5), "No error message found.");
+		String actualMsg = getElementAttribute(errorMsg, "text");
+		Assert.assertTrue(actualMsg.trim().equals(expectedMsg),
+				String.format("Error message does not match. Expected: %s. Actual: %s.", expectedMsg, actualMsg));
+	}
+
+	@Override
+	public void validateNoErrorMessageDisplayed() {
+		Assert.assertFalse(isElementDisplayed(errorMsg, 2), "Error message found during login.");
 	}
 }
