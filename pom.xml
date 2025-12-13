@@ -32,8 +32,8 @@
                         <allure.results.directory>target/allure-results</allure.results.directory>
                         <platform.type>${platform.type}</platform.type>
                         <device.profile>${device.profile}</device.profile>
-                        <SAUCE_USERNAME>${perfecto.username}</SAUCE_USERNAME>
-                        <SAUCE_ACCESS_KEY>${perfecto.accessKey}</SAUCE_ACCESS_KEY>
+                        <perfecto.username>${perfecto.username}</perfecto.username>
+                        <perfecto.accessKey>${perfecto.accessKey}</perfecto.accessKey>
                     </systemPropertyVariables>
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/1.9.7/aspectjweaver-1.9.7.jar"
