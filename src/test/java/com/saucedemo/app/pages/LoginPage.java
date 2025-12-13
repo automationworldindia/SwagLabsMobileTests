@@ -26,4 +26,9 @@ public class LoginPage {
 	public void login(String userName, String password) {
 		loginPage.login(userName, password);
 	}
+
+	@Step("Validate error message '{0}' is displayed.")
+	public void validateErrorMessage(String expectedMsg) {
+		loginPage.validateErrorMessage(expectedMsg);
+	}
 }

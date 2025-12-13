@@ -56,8 +56,7 @@ public class LoginTests extends BaseTest {
 			loginPage.login(data.get("UserName"), data.get("Password"));	
 			
 			//Validate login
-			ProductsPage productPage = new ProductsPage(driver);
-			productPage.validateErrorMessage("Sorry, this user has been locked out.");
+			loginPage.validateErrorMessage("Sorry, this user has been locked out.");
 		} catch (Exception e) {
 			e.printStackTrace();
 			Assert.fail("Error: " + e.getMessage());

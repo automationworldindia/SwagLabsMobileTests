@@ -14,7 +14,6 @@ public class ProductsPage_iOS extends BasePage implements iOSGestures, IProducts
 	private By productsBanner = AppiumBy.iOSNsPredicateString("type == \"XCUIElementTypeStaticText\" AND name == \"PRODUCTS\"");
 	//private By cartBtn = AppiumBy.xpath("**/XCUIElementTypeOther[`name == \"test-Cart\"`]/**/XCUIElementTypeOther");
 	private By cartBtn = AppiumBy.accessibilityId("test-Cart");
-	private By errorMsg = AppiumBy.iOSClassChain("**/XCUIElementTypeOther[`name == 'test-Error message'`]/**/XCUIElementTypeStaticText"); 
 	private By scrollableCntr = AppiumBy.iOSClassChain("**/XCUIElementTypeScrollView");
 	
 	private String addToCartBtn = "//XCUIElementTypeStaticText[@label='%s']//parent::XCUIElementTypeOther//following-sibling::XCUIElementTypeOther//XCUIElementTypeOther[@name='ADD TO CART']";
@@ -67,13 +66,4 @@ public class ProductsPage_iOS extends BasePage implements iOSGestures, IProducts
 		By locator = AppiumBy.xpath(String.format(removeBtn, productName));
 		Assert.assertTrue(isElementDisplayed(locator), "Selected product not added to Cart.");
 	}
-	
-	@Override
-	public void validateErrorMessage(String expectedMsg) {
-		Assert.assertTrue(isElementDisplayed(errorMsg, 5), "No error message found.");
-		String actualMsg = getElementAttribute(errorMsg, "label");
-		Assert.assertTrue(actualMsg.trim().equals(expectedMsg), 
-				String.format("Error message does not match. Expected: %s. Actual: %s.", expectedMsg, actualMsg));
-	}
-
 }
