@@ -47,14 +47,16 @@ pipeline {
 
             stage('Run Appium Tests') {
                 steps {
-                    sh """
-                        mvn clean test \
-                        -Dplatform.type=${PLATFORM_TYPE} \
-                        -Ddevice.profile=${DEVICE_PROFILE} \
-                        -DsuiteXmlFile=${TESTNG_SUITE} \
-                        -Dperfecto.username=${SAUCE_USERNAME} \
-                        -Dperfecto.accessKey=${SAUCE_ACCESS_KEY}
-                    """
+                    catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+                                sh """
+                                    mvn clean test \
+                                    -Dplatform.type=${PLATFORM_TYPE} \
+                                    -Ddevice.profile=${DEVICE_PROFILE} \
+                                    -DsuiteXmlFile=${TESTNG_SUITE} \
+                                    -Dperfecto.username=${SAUCE_USERNAME} \
+                                    -Dperfecto.accessKey=${SAUCE_ACCESS_KEY}
+                                """
+                            }
                 }
             }
 
