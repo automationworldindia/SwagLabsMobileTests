@@ -41,7 +41,7 @@ pipeline {
                 steps {
                     git branch: "${params.BRANCH}",
                         credentialsId: 'github-creds',
-                        url: 'https://github.com/<org>/<repo>.git'
+                        url: 'https://github.com/automationworldindia/SwagLabsMobileTests.git'
                 }
             }
 
