@@ -29,6 +29,8 @@ public abstract class BaseTest {
 	public void suiteSetUp(@Optional String platform, @Optional String profile, @Optional String port) {
 		try {
 			System.out.println("******** Test Suite started at thread#: " + Thread.currentThread().getId() + " ********");
+			System.getProperty("SAUCE_USERNAME");
+			System.getProperty("SAUCE_ACCESS_KEY");
 			loadTestConfiguration(platform, profile);
 			AppiumServiceManager.startAppiumService(port);
 		} catch (Exception e) {
