@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 
+import com.saucedemo.app.controller.LoggerManager;
 import com.saucedemo.app.controller.ReportManager;
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -28,11 +29,11 @@ public abstract class BaseTest {
 	@Parameters({"platform", "profile", "port"})
 	public void suiteSetUp(@Optional String platform, @Optional String profile, @Optional String port) {
 		try {
-			System.out.println("******** Test Suite started at thread#: " + Thread.currentThread().getId() + " ********");
+			LoggerManager.info("******** Test Suite started at thread#: " + Thread.currentThread().getId() + " ********");
 			loadTestConfiguration(platform, profile);
 			AppiumServiceManager.startAppiumService(port);
 		} catch (Exception e) {
-			System.out.println(String.format("************** Thread %s: Excpetion occurred during driver initialization: %s **************", 
+			LoggerManager.error(String.format("************** Thread %s: Excpetion occurred during driver initialization: %s **************",
 					Thread.currentThread().getId(), e.getMessage()));
 		}
 	}
@@ -40,10 +41,11 @@ public abstract class BaseTest {
 	@BeforeMethod(alwaysRun=true)
 	public void testSetup(Method method) {
 		try {
-			System.out.println(String.format("******** Thread %s: Initializing driver. ********", Thread.currentThread().getId()));
+			LoggerManager.info(
+					String.format("******** Thread %s: Initializing driver. ********", Thread.currentThread().getId()));
 			driver = AppiumDriverManager.getDriver();
-			System.out.println(String.format("******** Thread %s: Initialized driver. ********", Thread.currentThread().getId()));
 		} catch (MalformedURLException e) {
+			LoggerManager.error("************** Exception while initializing drivers: " + e.getMessage() + " *****************");
 			Assert.fail("************** Exception while initializing drivers: " + e.getMessage() + " *****************");
 		}
 	}
@@ -54,13 +56,14 @@ public abstract class BaseTest {
 			terminateApp(driver);	
 			AppiumDriverManager.killDriver();
 		} catch (Exception e) {
+			LoggerManager.error(e.getMessage());
 			Assert.fail(e.getMessage());
 		}
 	}
 	
 	@AfterTest(alwaysRun=true)
 	public void suiteTearDown() {
-		System.out.println(String.format("******** Thread id %s: Stopping Appium service for %s. ********", 
+		LoggerManager.error(String.format("******** Thread id %s: Stopping Appium service for %s. ********",
 				Thread.currentThread().getId(), Constants.get().PLATFORM_TYPE));
 		AppiumServiceManager.stopAppiumService();
 	}
@@ -83,9 +86,9 @@ public abstract class BaseTest {
 		if (profilefromXML != null) {
 			Constants.get().DEVICE_PROFILE = profilefromXML.trim();
 		}
-		System.out.println(String.format("********* Running at thread %s using %s on %s ***********", 
+		LoggerManager.error(
+				String.format("********* Running at thread %s using %s on %s ***********",
 				Thread.currentThread().getId(), Constants.get().DEVICE_PROFILE, Constants.get().PLATFORM_TYPE));
 		JsonUtils.loadDeviceProfile(Constants.get().DEVICE_PROFILE);
 	}
-
 }

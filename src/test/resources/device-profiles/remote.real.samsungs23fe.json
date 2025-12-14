@@ -1,0 +1,12 @@
+{
+	"platform": {
+		"name": "android",
+		"version": "16"
+	},
+	"device": {
+		"name": "Samsung Galaxy S23 FE",
+		"type": "real"
+	},
+	"no_reset": false,
+	"automation_name": "UiAutomator2"
+}

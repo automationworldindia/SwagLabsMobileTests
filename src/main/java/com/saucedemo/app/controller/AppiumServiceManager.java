@@ -43,10 +43,10 @@ public class AppiumServiceManager {
                 throw new RuntimeException("Failed to start Appium service on port: "
                         + Constants.get().APPIUM_SERVER_PORT);
             }
-            System.out.println("Appium server started on: "
+            LoggerManager.info("Appium server started on: "
                     + Constants.get().APPIUM_SERVER_ADDRESS + ":" + Constants.get().APPIUM_SERVER_PORT);
         } else {
-            System.out.println("Appium service already running for this thread on port: "
+            LoggerManager.error("Appium service already running for this thread on port: "
                     + Constants.get().APPIUM_SERVER_PORT);
         }
     }
@@ -56,12 +56,12 @@ public class AppiumServiceManager {
             return;
         AppiumDriverLocalService server = service.get();
         if (server == null) {
-            System.out.println("Appium service was not initialized for this thread.");
+            LoggerManager.error("Appium service was not initialized for this thread.");
             return;
         }
         if (server.isRunning()) {
             server.stop();
-            System.out.println("Appium service stopped on port: "
+            LoggerManager.info("Appium service stopped on port: "
                     + Constants.get().APPIUM_SERVER_PORT);
         }
         // Remove from ThreadLocal after stopping
