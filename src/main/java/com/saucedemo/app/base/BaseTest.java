@@ -43,7 +43,7 @@ public abstract class BaseTest {
 		try {
 			LoggerManager.info(
 					String.format("******** Thread %s: Initializing driver. ********", Thread.currentThread().getId()));
-			driver = AppiumDriverManager.getDriver();
+			driver = AppiumDriverManager.getDriver(method.getName().toLowerCase());
 		} catch (MalformedURLException e) {
 			LoggerManager.error("************** Exception while initializing drivers: " + e.getMessage() + " *****************");
 			Assert.fail("************** Exception while initializing drivers: " + e.getMessage() + " *****************");
@@ -53,7 +53,7 @@ public abstract class BaseTest {
 	@AfterMethod(alwaysRun=true)
 	public void testTeardown() {
 		try {
-			terminateApp(driver);	
+			terminateApp(driver);
 			AppiumDriverManager.killDriver();
 		} catch (Exception e) {
 			LoggerManager.error(e.getMessage());

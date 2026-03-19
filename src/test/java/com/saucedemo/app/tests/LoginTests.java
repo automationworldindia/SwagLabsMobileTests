@@ -2,6 +2,7 @@ package com.saucedemo.app.tests;
 
 import java.util.Map;
 
+import com.saucedemo.app.utils.RetryUtils;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import org.testng.Assert;
@@ -21,7 +22,8 @@ import io.qameta.allure.Description;
 @Feature("Validate login functionality of the mobile app")
 public class LoginTests extends BaseTest {
 	@Test(description = "[Login-001] Verify user is able to login using valid credentials.",
-			groups = {"sanity", "regression"})
+			groups = {"sanity", "regression"},
+			retryAnalyzer = RetryUtils.class)
 	@Description("Validate login functionality using valid credentials.")
 	public void loginUsingValidCredentials() throws InterruptedException {
 		try {
@@ -44,7 +46,8 @@ public class LoginTests extends BaseTest {
 	}
 
 	@Test(description="[Login-002] Verify user is not able to login using locked out credentials.",
-			groups = {"regression", "develop"})
+			groups = {"regression", "develop"},
+			retryAnalyzer = RetryUtils.class)
 	@Description("Validate login functionality using locked credentials.")
 	public void loginUsingLockedoutCredentials() {
 		try {

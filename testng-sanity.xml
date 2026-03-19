@@ -7,6 +7,9 @@
 		</run>
 	</groups>
 	<test name="SanityTests">
+		<parameter name="platform" value="android" /> <!-- android, ios -->
+		<parameter name="profile" value="remote.real.samsungs23fe.json" />
+		<parameter name="port" value="4723" />
 		<packages>
 			<package name="com.saucedemo.app.tests" />
 		</packages>

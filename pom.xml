@@ -5,13 +5,6 @@
     <groupId>com.demo.saucedemo</groupId>
     <artifactId>SwagLabsMobileTests</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <properties>
-        <suiteXmlFile>testng-sanity.xml</suiteXmlFile>
-        <platform.type>${platform.type}</platform.type>
-        <device.profile>${device.profile}</device.profile>
-        <perfecto.username>${perfecto.username}</perfecto.username>
-        <perfecto.accessKey>${perfecto.accessKey}</perfecto.accessKey>
-    </properties>
     <build>
         <plugins>
             <plugin>
@@ -30,9 +23,13 @@
                 <configuration>
                     <systemPropertyVariables>
                         <allure.results.directory>target/allure-results</allure.results.directory>
+                        <!--suppress UnresolvedMavenProperty -->
                         <platform.type>${platform.type}</platform.type>
+                        <!--suppress UnresolvedMavenProperty -->
                         <device.profile>${device.profile}</device.profile>
+                        <!--suppress UnresolvedMavenProperty -->
                         <perfecto.username>${perfecto.username}</perfecto.username>
+                        <!--suppress UnresolvedMavenProperty -->
                         <perfecto.accessKey>${perfecto.accessKey}</perfecto.accessKey>
                     </systemPropertyVariables>
                     <argLine>

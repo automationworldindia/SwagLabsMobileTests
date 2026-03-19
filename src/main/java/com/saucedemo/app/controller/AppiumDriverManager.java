@@ -21,10 +21,14 @@ public class AppiumDriverManager {
 	private static final ThreadLocal<AppiumDriver> DRIVER = new ThreadLocal<>();
 	
 	private AppiumDriverManager() {}
+
+    public static AppiumDriver getDriver() throws MalformedURLException {
+        return getDriver("");
+    }
 	
-	public static AppiumDriver getDriver() throws MalformedURLException {
+	public static AppiumDriver getDriver(String methodName) throws MalformedURLException {
         if (DRIVER.get() == null) {
-            DRIVER.set(getDriver(Constants.get().PLATFORM_TYPE));
+            DRIVER.set(getDriver(Constants.get().PLATFORM_TYPE, methodName));
             LoggerManager.info(String.format("******* Initialized driver for %s at thread id %s. ********",
             		Constants.get().PLATFORM_TYPE, Thread.currentThread().getId()));
         }
@@ -40,14 +44,14 @@ public class AppiumDriverManager {
         }
     }
 	
-	private static AppiumDriver getDriver(PlatformType platformType) throws MalformedURLException {
+	private static AppiumDriver getDriver(PlatformType platformType, String methodName) throws MalformedURLException {
 		AppiumDriver driver = null;
 		String url = "http://" + Constants.get().APPIUM_SERVER_ADDRESS + ":" + Constants.get().APPIUM_SERVER_PORT;
 		
 		if (Constants.get().PLATFORM_TYPE == PlatformType.ANDROID) {
-			driver = Constants.get().ENABLE_PERFECTO ? getPerfectoAndroidDriver() : getAndroidDriver(url);
+			driver = Constants.get().ENABLE_PERFECTO ? getPerfectoAndroidDriver(methodName) : getAndroidDriver(url);
 		} else {
-			driver = Constants.get().ENABLE_PERFECTO ? getPerfectoIOSDriver() : getIOSDriver(url);
+			driver = Constants.get().ENABLE_PERFECTO ? getPerfectoIOSDriver(methodName) : getIOSDriver(url);
 		}
 		
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
@@ -82,7 +86,7 @@ public class AppiumDriverManager {
         return driver;
     }
 	
-	private static AppiumDriver getPerfectoAndroidDriver() throws MalformedURLException {
+	private static AppiumDriver getPerfectoAndroidDriver(String methodName) throws MalformedURLException {
 		//Device Capabilities
 		MutableCapabilities capabilities = new MutableCapabilities();
 		capabilities.setCapability("platformName", Constants.getPlatformName());
@@ -98,7 +102,7 @@ public class AppiumDriverManager {
         sauceOptions.put("username", Constants.get().PERFECTO_USERNAME);
         sauceOptions.put("accessKey", Constants.get().PERFECTO_ACCESSKEY);
         sauceOptions.put("build", "swaglabs_automated_tests");
-        sauceOptions.put("name", Constants.getPlatformName().toLowerCase() + "-" + Constants.getDeviceName().toLowerCase().replace(" ", "_"));
+        sauceOptions.put("name", Constants.getPlatformName().toLowerCase() + "-" + Constants.getDeviceName().toLowerCase().replace(" ", "_") + "_" + methodName);
         if (Constants.getDeviceType().equals("real"))
             sauceOptions.put("appiumVersion", "latest");
         
@@ -108,7 +112,7 @@ public class AppiumDriverManager {
         return driver;
 	}
 
-    private static AppiumDriver getPerfectoIOSDriver() throws MalformedURLException {
+    private static AppiumDriver getPerfectoIOSDriver(String methodName) throws MalformedURLException {
         //Device Capabilities
         MutableCapabilities capabilities = new MutableCapabilities();
         capabilities.setCapability("platformName", Constants.getPlatformName());
@@ -127,7 +131,7 @@ public class AppiumDriverManager {
         sauceOptions.put("username", Constants.get().PERFECTO_USERNAME);
         sauceOptions.put("accessKey", Constants.get().PERFECTO_ACCESSKEY);
         sauceOptions.put("build", "swaglabs_automated_tests");
-        sauceOptions.put("name", Constants.getPlatformName().toLowerCase() + "-" + Constants.getDeviceName().toLowerCase().replace(" ", "_"));
+        sauceOptions.put("name", Constants.getPlatformName().toLowerCase() + "-" + Constants.getDeviceName().toLowerCase().replace(" ", "_") + "_" + methodName);
         if (Constants.getDeviceType().equals("real"))
             sauceOptions.put("appiumVersion", "latest");
 
